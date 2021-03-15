@@ -18,20 +18,23 @@ else if (params.mode == "paired") {
         .set { ch_input }
 }
 else {
-    
+    Channel
+        .fromFilePairs(params.input, checkIfExists: true)
+        .map {row -> [ [id : row[0]], row[1] ]}
+        .set { ch_input }
 }
-//ch_input | view
+ch_input | view
 
 // Don't overwrite global params.modules, create a copy instead and use that within the main script.
-def modules = params.modules.clone()
+// def modules = params.modules.clone()
 
-def seqtk_options = modules['seqtk_subsample']
-seqtk_options.count = params.subset_count
-seqtk_options.seed = '-s' + params.seed
+// def seqtk_options = modules['seqtk_subsample']
+// seqtk_options.count = params.subset_count
+// seqtk_options.seed = '-s' + params.seed
 
-include { SEQTK_SUBSAMPLE } from './modules/seqtk_subsample/main' addParams( options: seqtk_options )
+// include { SEQTK_SUBSAMPLE } from './modules/seqtk_subsample/main' addParams( options: seqtk_options )
 
-workflow {
-    SEQTK_SUBSAMPLE( ch_input )
-    //SEQTK_SUBSAMPLE.out.fastq | view
-}
+// workflow {
+//     SEQTK_SUBSAMPLE( ch_input )
+//     //SEQTK_SUBSAMPLE.out.fastq | view
+// }
