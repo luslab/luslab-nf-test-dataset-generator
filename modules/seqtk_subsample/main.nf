@@ -40,9 +40,8 @@ process SEQTK_SUBSAMPLE {
         }
         else {
             """
-            seqtk sample $seed ${reads[0]} $count $options.args > ${prefix}.r1.fastq
-            seqtk sample $seed ${reads[1]} $count $options.args > ${prefix}.r2.fastq
-            gzip ${prefix}.r1.fastq && gzip ${prefix}.r2.fastq
+            seqtk sample $seed ${reads[0]} $count $options.args | gzip > ${prefix}.r1.fastq.gz
+            seqtk sample $seed ${reads[1]} $count $options.args | gzip > ${prefix}.r2.fastq.gz
             """
         }
 }
