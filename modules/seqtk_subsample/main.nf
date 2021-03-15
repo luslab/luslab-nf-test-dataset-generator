@@ -13,7 +13,7 @@ process SEQTK_SUBSAMPLE {
         saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), publish_id:meta.id) }
 
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
-        container 'https://depot.galaxyproject.org/singularity/seqtk:1.3--hed695b0_2'
+        container 'https://depot.galaxyproject.org/singularity/seqtk:1.2--1'
     } else {
         container 'quay.io/biocontainers/seqtk:1.3--hed695b0_2'
     }
